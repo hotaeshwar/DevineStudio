@@ -25,10 +25,10 @@ export default function CalendlyApp() {
           onClick={() => setIsModalOpen(false)}
         >
           <div 
-            className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl relative overflow-hidden"
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl relative overflow-hidden"
             style={{ 
-              height: '90vh', 
-              maxHeight: '900px',
+              height: '70vh', 
+              maxHeight: '650px',
               animation: 'slideUp 0.3s ease-out'
             }}
             onClick={(e) => e.stopPropagation()}
