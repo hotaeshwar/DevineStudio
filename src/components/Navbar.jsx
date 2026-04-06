@@ -44,26 +44,26 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 overflow-visible ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         isScrolled
           ? 'bg-white shadow-lg'
           : 'bg-transparent'
       }`}
     >
-      {/* Navbar inner — tight height via py-0, logo overflows via negative margin */}
-      <div className="container mx-auto px-3 sm:px-4 md:px-6 flex justify-between items-center h-14 sm:h-16">
+      {/* Navbar inner */}
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 flex justify-between items-center py-2">
 
-        {/* Logo — larger than the navbar height, overflows via negative margin */}
+        {/* Logo */}
         <Link
           to="/"
-          className="flex items-center group flex-shrink-0 -my-4"
+          className="flex items-center group flex-shrink-0"
           onClick={handleHomeClick}
           style={{ zIndex: 60 }}
         >
           <img
             src={Logo}
             alt="Company Logo"
-            className="h-20 sm:h-24 md:h-28 lg:h-32 transition-all duration-300 transform group-hover:scale-105"
+            className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto transition-all duration-300 transform group-hover:scale-105"
           />
         </Link>
 
