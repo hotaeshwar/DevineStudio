@@ -113,23 +113,22 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 overflow-visible ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
       }`}
     >
-      <div className="container mx-auto px-6 sm:px-8 md:px-10 flex justify-between items-center py-1">
+      <div className="container mx-auto px-6 sm:px-8 md:px-10 flex justify-between items-center py-2">
 
-        {/* Logo — padding-left + negative margin to overflow upward */}
+        {/* Logo */}
         <Link
           to="/"
-          className="flex items-center group flex-shrink-0 -my-8 ml-2 sm:ml-3 md:ml-4"
+          className="flex items-center group flex-shrink-0 ml-2 sm:ml-3 md:ml-4"
           onClick={handleHomeClick}
-          style={{ zIndex: 60 }}
         >
           <img
             src={Logo}
             alt="Company Logo"
-            className="h-24 sm:h-28 md:h-32 lg:h-36 w-auto
+            className="h-12 sm:h-14 md:h-16 w-auto
                        transition-transform duration-300 group-hover:scale-105
                        drop-shadow-md"
           />
@@ -170,7 +169,7 @@ const Navbar = () => {
         ${isMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="container mx-auto px-4 py-3">
           <div className="rounded-xl p-3 bg-black/75 backdrop-blur-md shadow-xl flex flex-col gap-1">
-            {[{ name: 'Home', id: null }, ...navLinks].map((link, i) => (
+            {[{ name: 'Home', id: null }, ...navLinks].map((link) => (
               <button
                 key={link.name}
                 onClick={() => link.id ? scrollToSection(link.id) : handleHomeClick()}
