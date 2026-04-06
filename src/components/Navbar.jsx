@@ -476,8 +476,8 @@ export default function Navbar() {
                 src="/media/logonew.png"
                 alt="MonkMedia Logo"
                 style={{
-                  height: "72px",        {/* ← was 210px; fits inside h-24/h-[100px] with breathing room */}
-                  maxHeight: "75%",      {/* ← safety cap: never exceeds 75% of navbar height */}
+                  height: "72px",
+                  maxHeight: "75%",
                   width: "auto",
                   objectFit: "contain",
                   display: "block",
