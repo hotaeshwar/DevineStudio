@@ -51,7 +51,7 @@ const Navbar = () => {
       }`}
     >
       {/* Navbar inner */}
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 flex justify-between items-center py-2">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 flex justify-between items-center py-1">
 
         {/* Logo */}
         <Link
@@ -63,7 +63,7 @@ const Navbar = () => {
           <img
             src={Logo}
             alt="Company Logo"
-            className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto transition-all duration-300 transform group-hover:scale-105"
+            className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto transition-all duration-300 transform group-hover:scale-105"
           />
         </Link>
 
