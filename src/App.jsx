@@ -23,15 +23,15 @@ const SplashScreen = ({ onComplete }) => {
   return (
     <div
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: '#0a0a0a' }}
+      style={{ background: '#ffffff' }}
     >
       {/* Architectural grid */}
       <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.06 }}>
         {[...Array(10)].map((_, i) => (
-          <div key={`v${i}`} className="absolute top-0 bottom-0 w-px bg-white" style={{ left: `${(i + 1) * 10}%` }} />
+          <div key={`v${i}`} className="absolute top-0 bottom-0 w-px bg-black" style={{ left: `${(i + 1) * 10}%` }} />
         ))}
         {[...Array(10)].map((_, i) => (
-          <div key={`h${i}`} className="absolute left-0 right-0 h-px bg-white" style={{ top: `${(i + 1) * 10}%` }} />
+          <div key={`h${i}`} className="absolute left-0 right-0 h-px bg-black" style={{ top: `${(i + 1) * 10}%` }} />
         ))}
       </div>
 
@@ -86,12 +86,12 @@ const SplashScreen = ({ onComplete }) => {
           }}
         >
           <p style={{
-            color: '#b8960c',
             fontFamily: 'Georgia, serif',
             letterSpacing: '0.45em',
             fontSize: '0.7rem',
             textTransform: 'uppercase',
             fontWeight: 300,
+            color: '#1a1a1a',
           }}>
             Architects &amp; Interior Designers
           </p>
@@ -106,7 +106,7 @@ const SplashScreen = ({ onComplete }) => {
           }}
         >
           {/* Bar track */}
-          <div style={{ width: 180, height: 2, background: 'rgba(255,255,255,0.1)', borderRadius: 9999, overflow: 'hidden', position: 'relative' }}>
+          <div style={{ width: 180, height: 2, background: 'rgba(0,0,0,0.1)', borderRadius: 9999, overflow: 'hidden', position: 'relative' }}>
             <div style={{
               position: 'absolute', left: 0, top: 0, height: '100%', borderRadius: 9999,
               background: 'linear-gradient(90deg, #b8960c, #f5c518, #b8960c)',
@@ -136,7 +136,7 @@ const SplashScreen = ({ onComplete }) => {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: '#0a0a0a',
+          background: '#ffffff',
           transformOrigin: 'top',
           transform: phase === 'exit' ? 'scaleY(1)' : 'scaleY(0)',
           transition: 'transform 0.6s cubic-bezier(.77,0,.18,1)',
