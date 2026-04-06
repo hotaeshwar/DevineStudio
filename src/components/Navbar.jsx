@@ -41,7 +41,6 @@ const TabNavLinks = ({ scrollToSection, handleHomeClick, isScrolled }) => {
       className="relative flex items-center"
       onMouseLeave={hidePill}
     >
-      {/* Sliding pill */}
       <span
         className="absolute top-0 h-full rounded-md pointer-events-none transition-all duration-300 ease-[cubic-bezier(.23,1,.32,1)]"
         style={{
@@ -55,7 +54,6 @@ const TabNavLinks = ({ scrollToSection, handleHomeClick, isScrolled }) => {
           backdropFilter: 'blur(4px)',
         }}
       />
-
       {links.map((link, i) => (
         <button
           key={link.name}
@@ -116,25 +114,30 @@ const Navbar = () => {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 overflow-visible ${
         isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
       }`}
+      style={{ height: '70px' }}
     >
-      <div className="container mx-auto px-6 sm:px-8 md:px-10 flex justify-between items-center py-2">
+      {/* Main bar — fixed height, never grows */}
+      <div
+        className="container mx-auto px-6 sm:px-8 md:px-10 flex justify-between items-center"
+        style={{ height: '70px' }}
+      >
 
-        {/* Logo — controlled overflow using negative margin */}
+        {/* Logo — overflows navbar via absolute-like negative margin trick */}
         <Link
           to="/"
           onClick={handleHomeClick}
           className="flex items-center group flex-shrink-0"
-          style={{ zIndex: 60, marginTop: '-18px', marginBottom: '-18px' }}
+          style={{ zIndex: 60, marginTop: '-40px', marginBottom: '-40px' }}
         >
           <img
             src={Logo}
             alt="Company Logo"
-            className="w-auto transition-transform duration-300 group-hover:scale-105 drop-shadow-md"
-            style={{ height: '80px' }}
+            style={{ height: '130px', width: 'auto' }}
+            className="transition-transform duration-300 group-hover:scale-105 drop-shadow-lg"
           />
         </Link>
 
-        {/* Desktop Tab Nav */}
+        {/* Desktop Nav */}
         <div className="hidden md:flex items-center pr-2 lg:pr-4">
           <TabNavLinks
             scrollToSection={scrollToSection}
