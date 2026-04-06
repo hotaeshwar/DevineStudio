@@ -122,17 +122,17 @@ const Navbar = () => {
         style={{ height: '70px' }}
       >
 
-        {/* Logo — overflows navbar via absolute-like negative margin trick */}
+        {/* Logo — larger, overflows navbar with negative margin */}
         <Link
           to="/"
           onClick={handleHomeClick}
           className="flex items-center group flex-shrink-0"
-          style={{ zIndex: 60, marginTop: '-40px', marginBottom: '-40px' }}
+          style={{ zIndex: 60, marginTop: '-50px', marginBottom: '-50px' }}
         >
           <img
             src={Logo}
             alt="Company Logo"
-            style={{ height: '130px', width: 'auto' }}
+            style={{ height: '170px', width: 'auto' }}
             className="transition-transform duration-300 group-hover:scale-105 drop-shadow-lg"
           />
         </Link>
