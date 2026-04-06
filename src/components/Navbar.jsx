@@ -81,7 +81,9 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -92,8 +94,11 @@ const Navbar = () => {
     const element = document.getElementById(id);
     if (element) {
       if (isMenuOpen) toggleMenu();
-      const navbarHeight = document.querySelector('nav').offsetHeight;
-      window.scrollTo({ top: element.offsetTop - navbarHeight, behavior: 'smooth' });
+      const navbarHeight = 70; // Fixed navbar height
+      window.scrollTo({ 
+        top: element.offsetTop - navbarHeight, 
+        behavior: 'smooth' 
+      });
     }
   };
 
@@ -111,26 +116,27 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 overflow-visible ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
       }`}
-      style={{ height: '70px' }}
+      style={{ 
+        height: '70px',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 9999
+      }}
     >
-      {/* Main bar — fixed height, never grows */}
       <div
-        className="container mx-auto px-6 sm:px-8 md:px-10 flex justify-between items-start pt-2"
-        style={{ height: '70px' }}
+        className="container mx-auto px-6 sm:px-8 md:px-10 flex justify-between items-center h-full"
       >
-
-        {/* Logo — positioned at top with negative top margin to extend upward */}
+        {/* Logo */}
         <Link
           to="/"
           onClick={handleHomeClick}
-          className="flex items-start group flex-shrink-0 relative"
-          style={{ 
-            zIndex: 60,
-            marginTop: '-30px',
-          }}
+          className="flex items-center group flex-shrink-0"
+          style={{ zIndex: 60 }}
         >
           <img
             src={Logo}
@@ -140,8 +146,8 @@ const Navbar = () => {
           />
         </Link>
 
-        {/* Desktop Nav - aligned to top */}
-        <div className="hidden md:flex items-start pt-2 pr-2 lg:pr-4">
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center pr-2 lg:pr-4">
           <TabNavLinks
             scrollToSection={scrollToSection}
             handleHomeClick={handleHomeClick}
@@ -149,10 +155,10 @@ const Navbar = () => {
           />
         </div>
 
-        {/* Hamburger - aligned to top */}
+        {/* Hamburger */}
         <button
           className="md:hidden flex items-center justify-center w-9 h-9 rounded-full
-                     transition-all duration-300 hover:bg-white/10 focus:outline-none mt-1"
+                     transition-all duration-300 hover:bg-white/10 focus:outline-none"
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >
