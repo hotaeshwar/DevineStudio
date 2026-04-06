@@ -113,24 +113,24 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 overflow-visible ${
         isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-6 sm:px-8 md:px-10 flex justify-between items-center py-2">
 
-        {/* Logo */}
+        {/* Logo — controlled overflow using negative margin */}
         <Link
           to="/"
-          className="flex items-center group flex-shrink-0 ml-2 sm:ml-3 md:ml-4"
           onClick={handleHomeClick}
+          className="flex items-center group flex-shrink-0"
+          style={{ zIndex: 60, marginTop: '-18px', marginBottom: '-18px' }}
         >
           <img
             src={Logo}
             alt="Company Logo"
-            className="h-12 sm:h-14 md:h-16 w-auto
-                       transition-transform duration-300 group-hover:scale-105
-                       drop-shadow-md"
+            className="w-auto transition-transform duration-300 group-hover:scale-105 drop-shadow-md"
+            style={{ height: '80px' }}
           />
         </Link>
 
