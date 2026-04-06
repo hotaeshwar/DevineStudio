@@ -92,7 +92,7 @@ const Navbar = () => {
     const element = document.getElementById(id);
     if (element) {
       if (isMenuOpen) toggleMenu();
-      const navbarHeight = document.querySelector('nav').offsetHeight;
+      const navbarHeight = 70;
       window.scrollTo({ top: element.offsetTop - navbarHeight, behavior: 'smooth' });
     }
   };
@@ -111,23 +111,22 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 overflow-visible ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
       }`}
-      style={{ height: '70px' }}
+      style={{ height: '70px', overflow: 'visible' }}
     >
-      {/* Main bar — fixed height, never grows */}
       <div
         className="container mx-auto px-6 sm:px-8 md:px-10 flex justify-between items-center"
         style={{ height: '70px' }}
       >
 
-        {/* Logo — larger, overflows navbar with negative margin */}
+        {/* Logo — starts at top of navbar, overflows only downward */}
         <Link
           to="/"
           onClick={handleHomeClick}
-          className="flex items-center group flex-shrink-0"
-          style={{ zIndex: 60, marginTop: '-50px', marginBottom: '-50px' }}
+          className="flex items-start group flex-shrink-0"
+          style={{ zIndex: 60, marginTop: '0px' }}
         >
           <img
             src={Logo}
@@ -168,8 +167,8 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out
-        ${isMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div className={`md:hidden transition-all duration-500 ease-in-out
+        ${isMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
         <div className="container mx-auto px-4 py-3">
           <div className="rounded-xl p-3 bg-black/75 backdrop-blur-md shadow-xl flex flex-col gap-1">
             {[{ name: 'Home', id: null }, ...navLinks].map((link) => (
