@@ -44,7 +44,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 overflow-visible ${
         isScrolled
           ? 'bg-white shadow-lg'
           : 'bg-transparent'
@@ -56,14 +56,14 @@ const Navbar = () => {
         {/* Logo */}
         <Link
           to="/"
-          className="flex items-center group flex-shrink-0"
+          className="flex items-center group flex-shrink-0 -my-6"
           onClick={handleHomeClick}
           style={{ zIndex: 60 }}
         >
           <img
             src={Logo}
             alt="Company Logo"
-            className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto transition-all duration-300 transform group-hover:scale-105"
+            className="h-20 sm:h-24 md:h-28 lg:h-32 w-auto transition-all duration-300 transform group-hover:scale-105"
           />
         </Link>
 
