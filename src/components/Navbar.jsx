@@ -92,7 +92,7 @@ const Navbar = () => {
     const element = document.getElementById(id);
     if (element) {
       if (isMenuOpen) toggleMenu();
-      const navbarHeight = 70;
+      const navbarHeight = document.querySelector('nav').offsetHeight;
       window.scrollTo({ top: element.offsetTop - navbarHeight, behavior: 'smooth' });
     }
   };
@@ -111,33 +111,37 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 overflow-visible ${
         isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
       }`}
-      style={{ height: '70px', overflow: 'visible' }}
+      style={{ height: '70px' }}
     >
+      {/* Main bar — fixed height, never grows */}
       <div
-        className="container mx-auto px-6 sm:px-8 md:px-10 flex justify-between items-center"
+        className="container mx-auto px-6 sm:px-8 md:px-10 flex justify-between items-start pt-2"
         style={{ height: '70px' }}
       >
 
-        {/* Logo — starts at top of navbar, overflows only downward */}
+        {/* Logo — positioned at top with negative top margin to extend upward */}
         <Link
           to="/"
           onClick={handleHomeClick}
-          className="flex items-start group flex-shrink-0"
-          style={{ zIndex: 60, marginTop: '0px' }}
+          className="flex items-start group flex-shrink-0 relative"
+          style={{ 
+            zIndex: 60,
+            marginTop: '-30px',
+          }}
         >
           <img
             src={Logo}
             alt="Company Logo"
-            style={{ height: '170px', width: 'auto' }}
+            style={{ height: '130px', width: 'auto' }}
             className="transition-transform duration-300 group-hover:scale-105 drop-shadow-lg"
           />
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center pr-2 lg:pr-4">
+        {/* Desktop Nav - aligned to top */}
+        <div className="hidden md:flex items-start pt-2 pr-2 lg:pr-4">
           <TabNavLinks
             scrollToSection={scrollToSection}
             handleHomeClick={handleHomeClick}
@@ -145,10 +149,10 @@ const Navbar = () => {
           />
         </div>
 
-        {/* Hamburger */}
+        {/* Hamburger - aligned to top */}
         <button
           className="md:hidden flex items-center justify-center w-9 h-9 rounded-full
-                     transition-all duration-300 hover:bg-white/10 focus:outline-none"
+                     transition-all duration-300 hover:bg-white/10 focus:outline-none mt-1"
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >
@@ -167,8 +171,8 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden transition-all duration-500 ease-in-out
-        ${isMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+      <div className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out
+        ${isMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="container mx-auto px-4 py-3">
           <div className="rounded-xl p-3 bg-black/75 backdrop-blur-md shadow-xl flex flex-col gap-1">
             {[{ name: 'Home', id: null }, ...navLinks].map((link) => (
