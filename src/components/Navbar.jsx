@@ -2,52 +2,79 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from "../assets/image/logo.png";
 
-/* ── Split-letter slide hover animation ── */
-const SplitHoverLink = ({ label, onClick, isScrolled }) => {
-  const letters = label.split('');
+/* ── Sliding Tab Nav ── */
+const TabNavLinks = ({ scrollToSection, handleHomeClick, isScrolled }) => {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [pillStyle, setPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
+  const containerRef = useRef(null);
+  const buttonRefs = useRef([]);
+
+  const links = [
+    { name: 'Home',       action: handleHomeClick },
+    { name: 'About Us',   action: () => scrollToSection('about-us')    },
+    { name: 'Projects',   action: () => scrollToSection('our-projects') },
+    { name: 'Who We Are', action: () => scrollToSection('who-we-are')  },
+    { name: 'Contact Us', action: () => scrollToSection('contact-us')  },
+  ];
+
+  const movePill = (index) => {
+    const btn = buttonRefs.current[index];
+    const container = containerRef.current;
+    if (!btn || !container) return;
+    const btnRect = btn.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    setPillStyle({
+      width: btnRect.width,
+      left: btnRect.left - containerRect.left,
+      opacity: 1,
+    });
+  };
+
+  const hidePill = () => {
+    setPillStyle(prev => ({ ...prev, opacity: 0 }));
+    setHoveredIndex(null);
+  };
 
   return (
-    <button
-      onClick={onClick}
-      className="relative group flex flex-col overflow-hidden px-3 py-1 cursor-pointer
-                 bg-transparent border-none outline-none select-none"
+    <div
+      ref={containerRef}
+      className="relative flex items-center"
+      onMouseLeave={hidePill}
     >
-      {/* Top row — slides up on hover */}
+      {/* Sliding pill */}
       <span
-        className="flex font-sans font-semibold tracking-widest uppercase text-xs lg:text-sm
-                   transition-transform duration-300 ease-[cubic-bezier(.23,1,.32,1)]
-                   group-hover:-translate-y-full"
-        style={{ color: isScrolled ? '#1a1a1a' : '#ffffff' }}
-      >
-        {letters.map((l, i) => (
-          <span key={i} className="inline-block" style={{ transitionDelay: `${i * 20}ms` }}>
-            {l === ' ' ? '\u00A0' : l}
-          </span>
-        ))}
-      </span>
-
-      {/* Bottom clone — rises into view on hover */}
-      <span
-        className="flex font-sans font-semibold tracking-widest uppercase text-xs lg:text-sm
-                   absolute top-full left-3
-                   transition-transform duration-300 ease-[cubic-bezier(.23,1,.32,1)]
-                   group-hover:-translate-y-full"
-        style={{ color: isScrolled ? '#b8960c' : '#f5c518' }}
-      >
-        {letters.map((l, i) => (
-          <span key={i} className="inline-block" style={{ transitionDelay: `${i * 20}ms` }}>
-            {l === ' ' ? '\u00A0' : l}
-          </span>
-        ))}
-      </span>
-
-      {/* Gold underline sweep */}
-      <span
-        className="absolute bottom-0 left-3 h-px w-0
-                   transition-all duration-500 group-hover:w-[calc(100%-1.5rem)]"
-        style={{ background: isScrolled ? '#b8960c' : '#f5c518' }}
+        className="absolute top-0 h-full rounded-md pointer-events-none transition-all duration-300 ease-[cubic-bezier(.23,1,.32,1)]"
+        style={{
+          width: pillStyle.width,
+          left: pillStyle.left,
+          opacity: pillStyle.opacity,
+          background: isScrolled
+            ? 'rgba(184,150,12,0.12)'
+            : 'rgba(255,255,255,0.12)',
+          borderBottom: `2px solid ${isScrolled ? '#b8960c' : '#f5c518'}`,
+          backdropFilter: 'blur(4px)',
+        }}
       />
-    </button>
+
+      {links.map((link, i) => (
+        <button
+          key={link.name}
+          ref={el => buttonRefs.current[i] = el}
+          onClick={link.action}
+          onMouseEnter={() => { setHoveredIndex(i); movePill(i); }}
+          className="relative z-10 px-3 lg:px-4 py-2 font-sans font-semibold
+                     tracking-widest uppercase text-xs lg:text-sm
+                     transition-colors duration-200 whitespace-nowrap"
+          style={{
+            color: hoveredIndex === i
+              ? (isScrolled ? '#b8960c' : '#f5c518')
+              : (isScrolled ? '#1a1a1a' : '#ffffff'),
+          }}
+        >
+          {link.name}
+        </button>
+      ))}
+    </div>
   );
 };
 
@@ -90,33 +117,31 @@ const Navbar = () => {
         isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
       }`}
     >
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 flex justify-between items-center py-1">
+      <div className="container mx-auto px-6 sm:px-8 md:px-10 flex justify-between items-center py-1">
 
-        {/* Logo — -my-8 lets it overflow the slim navbar */}
+        {/* Logo — padding-left + negative margin to overflow upward */}
         <Link
           to="/"
-          className="flex items-center group flex-shrink-0 -my-8"
+          className="flex items-center group flex-shrink-0 -my-8 ml-2 sm:ml-3 md:ml-4"
           onClick={handleHomeClick}
           style={{ zIndex: 60 }}
         >
           <img
             src={Logo}
             alt="Company Logo"
-            className="h-24 sm:h-28 md:h-32 lg:h-36 w-auto transition-transform duration-300 group-hover:scale-105"
+            className="h-24 sm:h-28 md:h-32 lg:h-36 w-auto
+                       transition-transform duration-300 group-hover:scale-105
+                       drop-shadow-md"
           />
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
-          <SplitHoverLink label="Home" onClick={handleHomeClick} isScrolled={isScrolled} />
-          {navLinks.map(link => (
-            <SplitHoverLink
-              key={link.id}
-              label={link.name}
-              onClick={() => scrollToSection(link.id)}
-              isScrolled={isScrolled}
-            />
-          ))}
+        {/* Desktop Tab Nav */}
+        <div className="hidden md:flex items-center pr-2 lg:pr-4">
+          <TabNavLinks
+            scrollToSection={scrollToSection}
+            handleHomeClick={handleHomeClick}
+            isScrolled={isScrolled}
+          />
         </div>
 
         {/* Hamburger */}
@@ -149,7 +174,7 @@ const Navbar = () => {
               <button
                 key={link.name}
                 onClick={() => link.id ? scrollToSection(link.id) : handleHomeClick()}
-                className="w-full text-left text-white font-sans font-medium text-xs
+                className="w-full text-left text-white font-sans font-semibold text-xs
                            py-2 px-3 rounded-lg border-b border-white/10 last:border-0
                            relative group overflow-hidden tracking-widest uppercase
                            hover:bg-white/10 transition-all duration-300"
