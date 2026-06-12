@@ -121,8 +121,14 @@ const Navbar = () => {
           <img
             src={Logo}
             alt="Company Logo"
-            style={{ height: '70px', width: 'auto' }}
-            className="transition-transform duration-300 group-hover:scale-105 drop-shadow-sm"
+            style={{ 
+              height: '120px', 
+              width: 'auto',
+              maxHeight: 'none',
+              position: 'relative',
+              top: '12px'
+            }}
+            className="transition-transform duration-300 group-hover:scale-105 drop-shadow-md"
           />
         </Link>
 
