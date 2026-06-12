@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ar. Amrita Sachdeva | de'Vine sTudiO - Digital Business Card</title>
+    
+    <!-- Open Graph Metadata (WhatsApp, Facebook, LinkedIn previews) -->
+    <meta property="og:title" content="de'Vine sTudiO - Digital Business Card">
+    <meta property="og:description" content="Ar. Amrita Sachdeva - Principal Architect & Interior Design Consultant. Click to save contact, call, or visit our website.">
+    <meta property="og:image" content="https://devinestudio.com/assets/image/logo.png">
+    <meta property="og:url" content="https://devinestudio.com/card/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Metadata -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="de'Vine sTudiO - Digital Business Card">
+    <meta name="twitter:description" content="Principal Architect & Interior Design Consultant. Click to save contact, call, or visit our website.">
+    <meta name="twitter:image" content="https://devinestudio.com/assets/image/logo.png">
+    
+    <!-- Mobile Styling & Browser Theme -->
+    <meta name="theme-color" content="#b8960c">
+    <link rel="icon" type="image/png" href="/assets/image/logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,700;1,400&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold: #b8960c;
+            --gold-light: #f5c518;
+            --gold-dark: #8c7104;
+            --bg-dark: #0d0e12;
+            --card-bg: rgba(26, 27, 35, 0.85);
+            --card-border: rgba(184, 150, 12, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Glow Background */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(184, 150, 12, 0.15) 0%, transparent 70%);
+            top: 10%;
+            left: -100px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(184, 150, 12, 0.1) 0%, transparent 70%);
+            bottom: 5%;
+            right: -150px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Card Container */
+        .card-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 420px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 32px 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            text-align: center;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cardEntrance {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Gold Corner Accents inside card */
+        .corner-accent {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-color: var(--gold);
+            border-style: solid;
+            pointer-events: none;
+        }
+        .top-left { top: 16px; left: 16px; border-width: 2px 0 0 2px; border-radius: 4px 0 0 0; }
+        .top-right { top: 16px; right: 16px; border-width: 2px 2px 0 0; border-radius: 0 4px 0 0; }
+        .bottom-left { bottom: 16px; left: 16px; border-width: 0 0 2px 2px; border-radius: 0 0 0 4px; }
+        .bottom-right { bottom: 16px; right: 16px; border-width: 0 2px 2px 0; border-radius: 0 0 4px 0; }
+
+        /* Logo and Header */
+        .logo-wrapper {
+            margin-bottom: 24px;
+        }
+        .logo {
+            height: 56px;
+            object-fit: contain;
+        }
+
+        /* Avatar */
+        .avatar-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px auto;
+        }
+        .avatar-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: var(--gold);
+            filter: blur(8px);
+            opacity: 0.3;
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+        .avatar {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold);
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.25; }
+            50% { transform: scale(1.06); opacity: 0.45; }
+        }
+
+        /* Bio Details */
+        .name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .role {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+        }
+        .company {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        .bio {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            padding: 0 10px;
+        }
+
+        /* Contacts Grid */
+        .contacts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 28px;
+            text-align: left;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        .contact-item:hover {
+            background: rgba(184, 150, 12, 0.08);
+            border-color: rgba(184, 150, 12, 0.25);
+            transform: translateX(4px);
+        }
+        .contact-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(184, 150, 12, 0.12);
+            border: 1px solid rgba(184, 150, 12, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+            color: var(--gold-light);
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .contact-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+        }
+        .contact-value {
+            font-size: 14px;
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        /* CTA Actions */
+        .actions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: none;
+        }
+
+        /* Save Contact Button */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(184, 150, 12, 0.3);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #ffd700 0%, var(--gold-light) 100%);
+            box-shadow: 0 6px 20px rgba(184, 150, 12, 0.45);
+            transform: translateY(-2px);
+        }
+        
+        /* Secondary Buttons Group */
+        .btn-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* WhatsApp Action */
+        .btn-whatsapp {
+            background: #25d366;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+        }
+        .btn-whatsapp:hover {
+            background: #20ba5a;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* Toast Popup */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid var(--gold);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            z-index: 100;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        <!-- Corner Accents for premium architecture feel -->
+        <div class="corner-accent top-left"></div>
+        <div class="corner-accent top-right"></div>
+        <div class="corner-accent bottom-left"></div>
+        <div class="corner-accent bottom-right"></div>
+
+        <!-- Brand Header Logo -->
+        <div class="logo-wrapper">
+            <img src="/assets/image/logo.png" alt="de'Vine sTudiO Logo" class="logo">
+        </div>
+
+        <!-- Avatar Image -->
+        <div class="avatar-container">
+            <div class="avatar-glow"></div>
+            <img src="/assets/image/amrita.png" alt="Ar. Amrita Sachdeva" class="avatar">
+        </div>
+
+        <!-- Name & Professional Titles -->
+        <h1 class="name">Ar. Amrita Sachdeva</h1>
+        <p class="role">Principal Architect & Designer</p>
+        <p class="company">de'Vine sTudiO</p>
+        
+        <p class="bio">
+            Transforming spaces into luxury architectural and interior design masterpieces, harmonizing elegance with functionality.
+        </p>
+
+        <!-- Contact Information Block -->
+        <div class="contacts-list">
+            <!-- Call item -->
+            <a href="tel:+919779433175" class="contact-item">
+                <span class="contact-icon"><i class="fa-solid fa-phone"></i></span>
+                <span class="contact-info">
+                    <span class="contact-label">Call Now</span>
+                    <span class="contact-value">+91 97794 33175</span>
+                </span>
+            </a>
+
+            <!-- Email item -->
+            <a href="mailto:devinestudio56@gmail.com" class="contact-item">
+                <span class="contact-icon"><i class="fa-solid fa-envelope"></i></span>
+                <span class="contact-info">
+                    <span class="contact-label">Email Us</span>
+                    <span class="contact-value">devinestudio56@gmail.com</span>
+                </span>
+            </a>
+
+            <!-- Website item -->
+            <a href="https://devinestudio.com" target="_blank" rel="noopener noreferrer" class="contact-item">
+                <span class="contact-icon"><i class="fa-solid fa-globe"></i></span>
+                <span class="contact-info">
+                    <span class="contact-label">Website</span>
+                    <span class="contact-value">www.devinestudio.com</span>
+                </span>
+            </a>
+
+            <!-- Location item -->
+            <a href="https://maps.google.com/?q=de'Vine+sTudiO+Zirakpur" target="_blank" rel="noopener noreferrer" class="contact-item">
+                <span class="contact-icon"><i class="fa-solid fa-location-dot"></i></span>
+                <span class="contact-info">
+                    <span class="contact-label">Location</span>
+                    <span class="contact-value">246, VIP Rd, Zirakpur, Punjab</span>
+                </span>
+            </a>
+        </div>
+
+        <!-- CTA Call-to-Actions -->
+        <div class="actions-container">
+            <!-- Save Contact (Primary) -->
+            <button onclick="downloadVCard()" class="btn btn-primary">
+                <i class="fa-solid fa-user-plus"></i> Save Contact
+            </button>
+
+            <!-- Inline CTA links -->
+            <div class="btn-row">
+                <!-- Direct Call -->
+                <a href="tel:+919779433175" class="btn btn-secondary">
+                    <i class="fa-solid fa-phone-flip"></i> Call Us
+                </a>
+                
+                <!-- Visit Website -->
+                <a href="https://devinestudio.com" class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Site
+                </a>
+            </div>
+
+            <!-- WhatsApp Chat -->
+            <a href="https://wa.me/919779433175?text=Hi!%20I%20visited%20your%20digital%20business%20card%20and%20would%20like%20to%20enquire%20about%20your%20architectural%20and%20interior%20design%20services." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+                <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+            </a>
+
+            <!-- Share Card -->
+            <button onclick="shareCard()" class="btn btn-secondary" style="margin-top: 4px;">
+                <i class="fa-solid fa-share-nodes"></i> Share Card
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Contact copied to clipboard!</div>
+
+    <script>
+        function downloadVCard() {
+            const vCardData = `BEGIN:VCARD
+VERSION:3.0
+N:Sachdeva;Amrita;Ar.;;
+FN:Ar. Amrita Sachdeva
+ORG:de'Vine sTudiO
+TITLE:Principal Architect & Interior Design Consultant
+TEL;TYPE=CELL,VOICE;VALUE=uri:tel:+919779433175
+EMAIL;TYPE=PREF,INTERNET:devinestudio56@gmail.com
+URL:https://devinestudio.com
+ADR;TYPE=WORK,POSTAL,PARCEL:;;246, UGF, de'Vine sTudiO, Devaji Vip Plaza, VIP Rd;Zirakpur;Punjab;140603;India
+END:VCARD`;
+
+            const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8;' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'Ar_Amrita_Sachdeva_deVine_sTudiO.vcf');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+            
+            showToast("vCard file downloaded. Open it to save to contacts!");
+        }
+
+        function shareCard() {
+            const shareText = "Check out the Digital Business Card of Ar. Amrita Sachdeva at de'Vine sTudiO:";
+            const shareUrl = window.location.origin + "/card/";
+
+            if (navigator.share) {
+                navigator.share({
+                    title: "Ar. Amrita Sachdeva - Digital Business Card",
+                    text: shareText,
+                    url: shareUrl
+                }).then(() => {
+                    console.log("Shared successfully");
+                }).catch(err => {
+                    console.log("Error sharing: ", err);
+                });
+            } else {
+                // Fallback copy to clipboard
+                const copyText = `${shareText} ${shareUrl}`;
+                navigator.clipboard.writeText(copyText).then(() => {
+                    showToast("Link copied to clipboard! Share it on WhatsApp.");
+                }).catch(err => {
+                    // Failover direct WhatsApp URL opens
+                    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(copyText)}`, '_blank');
+                });
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

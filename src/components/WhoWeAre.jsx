@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 // Import team member images from assets folder
 const TeamMember1 = '/assets/image/amrita.png';
@@ -10,7 +11,7 @@ import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg
 const WhoWeAre = () => {
   // Function to get the appropriate icon based on platform name
   const getIcon = (platform) => {
-    switch(platform) {
+    switch (platform) {
       case 'twitter': return faTwitter;
       case 'facebook': return faFacebook;
       case 'instagram': return faInstagram;
@@ -78,7 +79,7 @@ const WhoWeAre = () => {
           {/* Profile Card Column */}
           <div className="lg:col-span-5 flex justify-center w-full">
             {teamMembers.map((member, index) => (
-              <motion.article 
+              <motion.article
                 key={member.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -92,8 +93,8 @@ const WhoWeAre = () => {
                     <div className="aspect-square bg-gradient-to-br from-yellow-300 to-yellow-400 flex items-center justify-center overflow-hidden">
                       {/* Use imported image or fallback */}
                       {member.image ? (
-                        <img 
-                          src={member.image} 
+                        <img
+                          src={member.image}
                           alt={`${member.name} - ${member.role} at de'Vine sTudio`}
                           className="w-full h-full object-cover opacity-100 transition-all duration-300 group-hover:scale-105"
                           loading="lazy"
@@ -105,14 +106,14 @@ const WhoWeAre = () => {
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
                     </div>
-                    
+
                     {/* Social Links */}
                     <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 md:p-4 flex justify-center space-x-2 sm:space-x-3 md:space-x-4 translate-y-full group-hover:translate-y-0 transition-all duration-300">
                       {Object.keys(member.social).map((platform) => (
-                        <a 
-                          key={platform} 
-                          href={member.social[platform]} 
-                          target="_blank" 
+                        <a
+                          key={platform}
+                          href={member.social[platform]}
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-yellow-400 transition-all duration-200"
                           aria-label={`Follow ${member.name} on ${platform}`}
@@ -122,21 +123,41 @@ const WhoWeAre = () => {
                       ))}
                     </div>
                   </div>
-                  
+
                   {/* Text Content */}
                   <div className="p-3 sm:p-4 md:p-6 flex-grow flex flex-col">
                     <h3 className="text-base sm:text-lg md:text-xl font-bold mb-0.5 sm:mb-1 text-white group-hover:text-yellow-300 transition-colors duration-300">{member.name}</h3>
                     <p className="text-yellow-300 font-medium mb-2 sm:mb-3 md:mb-4 tracking-wide text-xs sm:text-sm">{member.role}</p>
                     <p className="text-gray-400 text-xs sm:text-sm md:text-base flex-grow line-clamp-3 sm:line-clamp-4 md:line-clamp-none">{member.bio}</p>
-                    
-                    {/* Responsive button - visible on all screens but styled differently */}
-                    <div className="mt-3 sm:mt-4 md:mt-6">
-                      <button 
-                        className="group-hover:bg-yellow-400 text-white text-xs sm:text-sm py-1.5 sm:py-2 px-3 sm:px-4 rounded-full w-full border border-yellow-300/30 transition-all duration-300 relative overflow-hidden"
-                        aria-label={`View detailed profile of ${member.name}`}
+
+                    {/* Action buttons for digital business card and sharing */}
+                    <div className="mt-3 sm:mt-4 md:mt-6 flex flex-col sm:flex-row gap-2">
+                      <a
+                        href="/card/"
+                        className="text-center text-white bg-transparent hover:bg-yellow-400 hover:text-gray-900 text-xs sm:text-sm py-2 px-3 rounded-full flex-1 border border-yellow-300/30 hover:border-yellow-400 transition-all duration-300 font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
+                        aria-label={`View digital card of ${member.name}`}
                       >
-                        <span className="relative z-10 group-hover:text-gray-900 transition-colors duration-300">View Profile</span>
-                        <span className="absolute inset-0 w-0 bg-yellow-400 group-hover:w-full transition-all duration-300 -z-0"></span>
+                        <i className="fa-solid fa-address-card"></i> View Card
+                      </a>
+                      <button
+                        onClick={() => {
+                          const shareText = "Check out the Digital Business Card of Ar. Amrita Sachdeva at de'Vine sTudiO:";
+                          const shareUrl = window.location.origin + "/card/";
+                          if (navigator.share) {
+                            navigator.share({
+                              title: "Ar. Amrita Sachdeva - Digital Business Card",
+                              text: shareText,
+                              url: shareUrl
+                            }).catch(err => console.log(err));
+                          } else {
+                            const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
+                            window.open(waUrl, '_blank');
+                          }
+                        }}
+                        className="bg-yellow-400 text-gray-900 hover:bg-yellow-500 text-xs sm:text-sm py-2 px-3 rounded-full flex-1 border border-yellow-400 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
+                        aria-label={`Share digital card of ${member.name} on WhatsApp`}
+                      >
+                        <i className="fa-brands fa-whatsapp text-sm"></i> Share Card
                       </button>
                     </div>
                   </div>
