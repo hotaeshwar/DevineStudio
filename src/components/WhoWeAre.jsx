@@ -130,35 +130,15 @@ const WhoWeAre = () => {
                     <p className="text-yellow-300 font-medium mb-2 sm:mb-3 md:mb-4 tracking-wide text-xs sm:text-sm">{member.role}</p>
                     <p className="text-gray-400 text-xs sm:text-sm md:text-base flex-grow line-clamp-3 sm:line-clamp-4 md:line-clamp-none">{member.bio}</p>
 
-                    {/* Action buttons for digital business card and sharing */}
-                    <div className="mt-3 sm:mt-4 md:mt-6 flex flex-col sm:flex-row gap-2">
+                    {/* Action buttons for digital business card */}
+                    <div className="mt-3 sm:mt-4 md:mt-6 flex justify-center">
                       <a
                         href="/card/"
-                        className="text-center text-white bg-transparent hover:bg-yellow-400 hover:text-gray-900 text-xs sm:text-sm py-2 px-3 rounded-full flex-1 border border-yellow-300/30 hover:border-yellow-400 transition-all duration-300 font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
+                        className="text-center text-white bg-transparent hover:bg-yellow-400 hover:text-gray-900 text-xs sm:text-sm py-2 px-6 rounded-full border border-yellow-300/30 hover:border-yellow-400 transition-all duration-300 font-semibold flex items-center justify-center gap-1.5 cursor-pointer w-full"
                         aria-label={`View digital card of ${member.name}`}
                       >
                         <i className="fa-solid fa-address-card"></i> View Card
                       </a>
-                      <button
-                        onClick={() => {
-                          const shareText = "Check out the Digital Business Card of Ar. Amrita Sachdeva at de'Vine sTudiO:";
-                          const shareUrl = window.location.origin + "/card/";
-                          if (navigator.share) {
-                            navigator.share({
-                              title: "Ar. Amrita Sachdeva - Digital Business Card",
-                              text: shareText,
-                              url: shareUrl
-                            }).catch(err => console.log(err));
-                          } else {
-                            const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
-                            window.open(waUrl, '_blank');
-                          }
-                        }}
-                        className="bg-yellow-400 text-gray-900 hover:bg-yellow-500 text-xs sm:text-sm py-2 px-3 rounded-full flex-1 border border-yellow-400 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
-                        aria-label={`Share digital card of ${member.name} on WhatsApp`}
-                      >
-                        <i className="fa-brands fa-whatsapp text-sm"></i> Share Card
-                      </button>
                     </div>
                   </div>
                 </div>
