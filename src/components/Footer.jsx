@@ -176,7 +176,7 @@ const Footer = () => {
                     <i className="fab fa-instagram text-yellow-300 text-sm sm:text-base"></i>
                   </a>
                   <a 
-                    href="/card/"
+                    href="/card/index.html"
                     className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-yellow-300/20 border border-yellow-300/30 hover:border-yellow-300/70 transition-all"
                     title="View Digital Business Card"
                   >

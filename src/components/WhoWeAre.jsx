@@ -133,7 +133,7 @@ const WhoWeAre = () => {
                     {/* Action buttons for digital business card */}
                     <div className="mt-3 sm:mt-4 md:mt-6 flex justify-center">
                       <a
-                        href="/card/"
+                        href="/card/index.html"
                         className="text-center text-white bg-transparent hover:bg-yellow-400 hover:text-gray-900 text-xs sm:text-sm py-2 px-6 rounded-full border border-yellow-300/30 hover:border-yellow-400 transition-all duration-300 font-semibold flex items-center justify-center gap-1.5 cursor-pointer w-full"
                         aria-label={`View digital card of ${member.name}`}
                       >
