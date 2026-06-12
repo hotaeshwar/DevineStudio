@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Logo = "/assets/image/logo.png";
 
 /* ── Sliding Tab Nav ── */
-const TabNavLinks = ({ scrollToSection, handleHomeClick }) => {
+const TabNavLinks = ({ scrollToSection, handleHomeClick, isScrolled }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [pillStyle, setPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
   const containerRef = useRef(null);
@@ -63,7 +63,11 @@ const TabNavLinks = ({ scrollToSection, handleHomeClick }) => {
                      tracking-widest uppercase text-xs lg:text-sm
                      transition-colors duration-200 whitespace-nowrap cursor-pointer text-center"
           style={{
-            color: hoveredIndex === i ? '#b8960c' : '#1a1a1a',
+            color: hoveredIndex === i 
+              ? '#b8960c' 
+              : isScrolled 
+                ? '#1a1a1a' 
+                : '#ffffff',
           }}
         >
           {link.name}
@@ -101,8 +105,12 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 bg-white border-b border-gray-100 transition-all duration-300 ${
-        isScrolled ? 'shadow-md' : 'shadow-sm'
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white border-b border-gray-100 shadow-md' 
+          : isMenuOpen
+            ? 'bg-black/75 backdrop-blur-md border-b border-white/10 shadow-lg'
+            : 'bg-transparent border-b border-transparent shadow-none'
       }`}
       style={{ height: '80px' }}
     >
@@ -126,9 +134,10 @@ const Navbar = () => {
               width: 'auto',
               maxHeight: 'none',
               position: 'relative',
-              top: '12px'
+              top: '12px',
+              filter: isScrolled ? 'none' : 'drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.85)) drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.95))'
             }}
-            className="transition-transform duration-300 group-hover:scale-105 drop-shadow-md"
+            className="transition-transform duration-300 group-hover:scale-105"
           />
         </Link>
 
@@ -137,6 +146,7 @@ const Navbar = () => {
           <TabNavLinks
             scrollToSection={scrollToSection}
             handleHomeClick={handleHomeClick}
+            isScrolled={isScrolled}
           />
         </div>
 
@@ -150,13 +160,13 @@ const Navbar = () => {
           <div className="w-5 flex flex-col items-center justify-center gap-1">
             <span className={`block w-5 h-0.5 rounded-full transition-all duration-300 transform
               ${isMenuOpen ? 'rotate-45 translate-y-1.5' : ''}
-              bg-black`} />
+              ${isScrolled ? 'bg-black' : 'bg-white'}`} />
             <span className={`block w-5 h-0.5 rounded-full transition-all duration-300
               ${isMenuOpen ? 'opacity-0 scale-0' : ''}
-              bg-black`} />
+              ${isScrolled ? 'bg-black' : 'bg-white'}`} />
             <span className={`block w-5 h-0.5 rounded-full transition-all duration-300 transform
               ${isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}
-              bg-black`} />
+              ${isScrolled ? 'bg-black' : 'bg-white'}`} />
           </div>
         </button>
       </div>
