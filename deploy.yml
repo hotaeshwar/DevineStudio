@@ -1,0 +1,125 @@
+#!/bin/bash
+
+# Navigate to project directory
+cd /c/Users/Jhank/OneDrive/Desktop/honey/deVine/architecture-portfolio
+
+echo "🚀 Setting up GitHub Pages deployment..."
+
+# Create CNAME file
+echo "Creating CNAME file..."
+echo "devinestudio.com" > CNAME
+echo "✅ CNAME file created"
+
+# Create .github/workflows directory
+echo "Creating workflows directory..."
+mkdir -p .github/workflows
+
+# Create GitHub Actions workflow file
+echo "Creating GitHub Actions workflow..."
+cat > .github/workflows/deploy.yml << 'EOF'
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build application
+        run: npm run build
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+EOF
+
+echo "✅ GitHub Actions workflow created"
+
+# Initialize git if not already initialized
+if [ ! -d .git ]; then
+    echo "Initializing git repository..."
+    git init
+    echo "✅ Git initialized"
+fi
+
+# Add all files
+echo "Adding files to git..."
+git add .
+
+# Commit changes
+echo "Committing changes..."
+git commit -m "Add GitHub Pages deployment with custom domain"
+
+# Rename branch to master if needed
+echo "Setting branch to master..."
+git branch -M master
+
+# Ask for GitHub repository URL
+echo ""
+echo "📝 Please enter your GitHub repository URL"
+echo "Example: https://github.com/YOUR_USERNAME/architecture-portfolio.git"
+read -p "Repository URL: " REPO_URL
+
+# Check if remote already exists
+if git remote | grep -q "origin"; then
+    echo "Updating remote origin..."
+    git remote set-url origin "$REPO_URL"
+else
+    echo "Adding remote origin..."
+    git remote add origin "$REPO_URL"
+fi
+
+# Push to master
+echo "Pushing to master branch..."
+git push -u origin master
+
+echo ""
+echo "✅ Deployment setup complete!"
+echo ""
+echo "📋 Next steps:"
+echo "1. Go to your GitHub repository"
+echo "2. Settings → Pages"
+echo "3. Source: Select 'GitHub Actions'"
+echo "4. Custom domain: Enter 'devinestudio.com'"
+echo "5. Configure DNS in Hostinger (see previous instructions)"
+echo ""
+echo "🎉 Your site will be live at https://devinestudio.com once DNS propagates!"
