@@ -13,6 +13,7 @@ const TabNavLinks = ({ scrollToSection, handleHomeClick, isScrolled }) => {
     { name: 'Home',       href: '#',            action: (e) => { e.preventDefault(); handleHomeClick(); } },
     { name: 'About Us',   href: '#about-us',    action: (e) => { e.preventDefault(); scrollToSection('about-us'); } },
     { name: 'Projects',   href: '#our-projects', action: (e) => { e.preventDefault(); scrollToSection('our-projects'); } },
+    { name: 'Portfolio',  href: 'https://portfolio.devinestudio.com/', target: '_blank', rel: 'noopener noreferrer' },
     { name: 'Who We Are', href: '#who-we-are',  action: (e) => { e.preventDefault(); scrollToSection('who-we-are'); } },
     { name: 'Contact Us', href: '#contact-us',  action: (e) => { e.preventDefault(); scrollToSection('contact-us'); } },
   ];
@@ -56,6 +57,8 @@ const TabNavLinks = ({ scrollToSection, handleHomeClick, isScrolled }) => {
         <a
           key={link.name}
           href={link.href}
+          target={link.target}
+          rel={link.rel}
           ref={el => buttonRefs.current[i] = el}
           onClick={link.action}
           onMouseEnter={() => { setHoveredIndex(i); movePill(i); }}
@@ -173,20 +176,27 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out
-        ${isMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
+        ${isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="container mx-auto px-4 py-3">
           <div className="rounded-xl p-3 bg-black/75 backdrop-blur-md shadow-xl flex flex-col gap-1">
             {[
               { name: 'Home', href: '#', id: null },
               { name: 'About Us', href: '#about-us', id: 'about-us' },
               { name: 'Projects', href: '#our-projects', id: 'our-projects' },
+              { name: 'Portfolio', href: 'https://portfolio.devinestudio.com/', target: '_blank', rel: 'noopener noreferrer' },
               { name: 'Who We Are', href: '#who-we-are', id: 'who-we-are' },
               { name: 'Contact Us', href: '#contact-us', id: 'contact-us' },
             ].map((link) => (
               <a
                 key={link.name}
                 href={link.href}
+                target={link.target}
+                rel={link.rel}
                 onClick={(e) => {
+                  if (link.target === '_blank') {
+                    if (isMenuOpen) toggleMenu();
+                    return;
+                  }
                   e.preventDefault();
                   link.id ? scrollToSection(link.id) : handleHomeClick();
                 }}
