@@ -13,9 +13,9 @@ const TabNavLinks = ({ scrollToSection, handleHomeClick, isScrolled }) => {
     { name: 'Home',       href: '#',            action: (e) => { e.preventDefault(); handleHomeClick(); } },
     { name: 'About Us',   href: '#about-us',    action: (e) => { e.preventDefault(); scrollToSection('about-us'); } },
     { name: 'Projects',   href: '#our-projects', action: (e) => { e.preventDefault(); scrollToSection('our-projects'); } },
-    { name: 'Portfolio',  href: 'https://portfolio.devinestudio.com/', target: '_blank', rel: 'noopener noreferrer' },
     { name: 'Who We Are', href: '#who-we-are',  action: (e) => { e.preventDefault(); scrollToSection('who-we-are'); } },
     { name: 'Contact Us', href: '#contact-us',  action: (e) => { e.preventDefault(); scrollToSection('contact-us'); } },
+    { name: 'Portfolio',  href: 'https://portfolio.devinestudio.com/', target: '_blank', rel: 'noopener noreferrer' },
   ];
 
   const movePill = (index) => {
@@ -183,9 +183,9 @@ const Navbar = () => {
               { name: 'Home', href: '#', id: null },
               { name: 'About Us', href: '#about-us', id: 'about-us' },
               { name: 'Projects', href: '#our-projects', id: 'our-projects' },
-              { name: 'Portfolio', href: 'https://portfolio.devinestudio.com/', target: '_blank', rel: 'noopener noreferrer' },
               { name: 'Who We Are', href: '#who-we-are', id: 'who-we-are' },
               { name: 'Contact Us', href: '#contact-us', id: 'contact-us' },
+              { name: 'Portfolio', href: 'https://portfolio.devinestudio.com/', target: '_blank', rel: 'noopener noreferrer' },
             ].map((link) => (
               <a
                 key={link.name}
